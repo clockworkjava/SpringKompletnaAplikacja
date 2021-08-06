@@ -1,4 +1,4 @@
-package pl.clockworkjava.gnomix;
+package pl.clockworkjava.gnomix.controllers;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
