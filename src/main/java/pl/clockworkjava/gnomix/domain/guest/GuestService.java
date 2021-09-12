@@ -2,6 +2,7 @@ package pl.clockworkjava.gnomix.domain.guest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +21,7 @@ public class GuestService {
         return this.repository.findAll();
     }
 
-
-    public void createNewGuest(String firstName, String lastName, String dateOfBirth, String gender) {
-        LocalDate parsedDate = LocalDate.parse(dateOfBirth);
-        Gender parsedGender = Gender.valueOf(gender);
-        this.repository.createNewGuest(firstName, lastName, parsedDate, parsedGender);
+    public void createNewGuest(GuestCreationDTO dto) {
+        this.repository.createNewGuest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender());
     }
 }
