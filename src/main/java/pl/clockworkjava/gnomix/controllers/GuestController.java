@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
 
 @Controller
@@ -30,13 +31,9 @@ public class GuestController {
     }
 
     @PostMapping("/createNewGuest")
-    public String handleCreateNewGuest(
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String dateOfBirth,
-            @RequestParam String gender) {
+    public String handleCreateNewGuest(GuestCreationDTO dto) {
 
-        this.guestService.createNewGuest(firstName, lastName, dateOfBirth, gender);
+        this.guestService.createNewGuest(dto);
 
         return "redirect:guests";
     }
