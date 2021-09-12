@@ -21,10 +21,9 @@ public class GuestService {
     }
 
 
-    public void createNewGuest(String firstName, String lastName, String dateOfBirth) {
-
+    public void createNewGuest(String firstName, String lastName, String dateOfBirth, String gender) {
         LocalDate parsedDate = LocalDate.parse(dateOfBirth);
-        this.repository.createNewGuest(firstName, lastName, parsedDate);
-
+        Gender parsedGender = Gender.valueOf(gender);
+        this.repository.createNewGuest(firstName, lastName, parsedDate, parsedGender);
     }
 }

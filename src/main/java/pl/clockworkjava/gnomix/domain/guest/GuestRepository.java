@@ -22,8 +22,8 @@ public class GuestRepository {
         return this.guests;
     }
 
-    public void createNewGuest(String firstName, String lastName, LocalDate dateOfBirth) {
-        Guest newOne = new Guest(firstName, lastName, dateOfBirth, Gender.MALE);
+    public void createNewGuest(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
+        Guest newOne = new Guest(firstName, lastName, dateOfBirth, gender);
         this.guests.add(newOne);
     }
 }
