@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.domain.guest;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 public class Guest {
@@ -15,7 +16,7 @@ public class Guest {
 
     public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender) {
 
-        this.id = System.currentTimeMillis();
+        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
