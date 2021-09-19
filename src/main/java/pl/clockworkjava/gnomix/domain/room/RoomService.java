@@ -24,13 +24,35 @@ public class RoomService {
 
     public Room createNewRoom(String roomNumber, String bedsDesc) {
 
-        String[] splitedBedDec = bedsDesc.split("\\+");
-
-        List<BedType> beds = Arrays.stream(splitedBedDec)
-                .map(stringToBedTypeMapping)
-                .collect(Collectors.toList());
+        List<BedType> beds = getBedTypesList(bedsDesc);
 
         return this.repository.createNewRoom(roomNumber, beds);
+    }
+
+    public void removeById(long id) {
+        this.repository.removeById(id);
+    }
+
+    public Room findById(long id) {
+        return this.repository.findById(id);
+    }
+
+    public void update(long id, String number, String bedsDesc) {
+
+        Room toUpdate = this.repository.findById(id);
+
+        List<BedType> beds = getBedTypesList(bedsDesc);
+
+
+        toUpdate.update(number, beds);
+    }
+
+    private List<BedType> getBedTypesList(String bedsDesc) {
+        String[] splitedBedDec = bedsDesc.split("\\+");
+
+        return Arrays.stream(splitedBedDec)
+                .map(stringToBedTypeMapping)
+                .collect(Collectors.toList());
     }
 
     private final Function<String, BedType> stringToBedTypeMapping = value -> {

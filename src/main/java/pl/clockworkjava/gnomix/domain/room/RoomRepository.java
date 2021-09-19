@@ -30,4 +30,16 @@ public class RoomRepository {
         this.rooms.add(r);
         return r;
     }
+
+    public void removeById(long id) {
+        Room toBeDeleted = this.findById(id);
+        this.rooms.remove(toBeDeleted);
+    }
+
+    public Room findById(long id) {
+        return this.rooms.stream()
+                .filter(room -> room.getId()==id)
+                .findFirst()
+                .orElseThrow();
+    }
 }
