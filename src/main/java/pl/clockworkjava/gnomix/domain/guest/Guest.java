@@ -1,18 +1,21 @@
 package pl.clockworkjava.gnomix.domain.guest;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
+@Setter(value = AccessLevel.NONE)
 public class Guest {
 
     private final long id;
-    private final String firstName;
-    private final String lastName;
-    private final LocalDate birthDate;
-    private final Gender gender;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+    private Gender gender;
 
     public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender) {
 
@@ -22,5 +25,12 @@ public class Guest {
         this.birthDate = birthDate;
         this.gender = gender;
 
+    }
+
+    public void update(String firstName, String lastName, LocalDate birthDate, Gender gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
     }
 }

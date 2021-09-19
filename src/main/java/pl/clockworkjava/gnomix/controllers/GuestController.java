@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
+import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
+import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
 
 import javax.websocket.server.PathParam;
@@ -43,6 +45,23 @@ public class GuestController {
     public String removeGuest(@PathVariable long id) {
 
         this.guestService.removeById(id);
+
+        return "redirect:/guests";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editGuest(@PathVariable long id, Model model) {
+
+          Guest guest = this.guestService.getById(id);
+          model.addAttribute("guest", guest);
+
+          return "editGuest";
+    }
+
+    @PostMapping("/edit")
+    public String editGuest(GuestUpdateDTO updatedGuest) {
+
+        this.guestService.update(updatedGuest);
 
         return "redirect:/guests";
     }
