@@ -52,7 +52,7 @@ public class GuestControllerTest {
         String postContent = "firstName=Pawel&lastName=Cwik&dateOfBirth=2021-09-15&gender=FEMALE";
 
         MockHttpServletRequestBuilder request =
-                post("/createNewGuest")
+                post("/guests")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .content(postContent);
 
