@@ -31,19 +31,25 @@
 
     <div class="container">
         <form th:action="@{/createNewRoom}" method="post">
-            <p>Numer pokoju: <input type="text" name="number" required /></p>
-            <p>Rozkład Lóżek:
-                <select name="bedsDesc">
-                    <option value="2">Podwójne</option>
-                    <option value="1">Pojedyncze</option>
-                    <option value="2+2">Podwójne + Podwójne</option>
-                    <option value="2+1">Podwójne + Pojedyncze</option>
-                    <option value="2+1+1">Podwójne + Pojedyncze + Pojedyncze</option>
-                    <option value="2+1+1+1">Podwójne + Pojedyncze + Pojedyncze + Pojedyncze</option>
-                    <option value="1+1">Pojedyncze + Pojedyncze</option>
-                </select>
-            </p>
-            <p><input type="submit" value="Submit" /></p>
+            <div class="form-group">
+                <label for="createnewroomnumber">Numer pokoju:</label>
+                <input type="text" name="number" required
+                       class="form-control" id="createnewroomnumber"/></p>
+            </div>
+
+            <div class="form-group">
+                <label for="createnewroombeds">Rozkład Lóżek:</label>
+                    <select name="bedsDesc" class="form-control" id="createnewroombeds">
+                        <option value="2">Podwójne</option>
+                        <option value="1">Pojedyncze</option>
+                        <option value="2+2">Podwójne + Podwójne</option>
+                        <option value="2+1">Podwójne + Pojedyncze</option>
+                        <option value="2+1+1">Podwójne + Pojedyncze + Pojedyncze</option>
+                        <option value="2+1+1+1">Podwójne + Pojedyncze + Pojedyncze + Pojedyncze</option>
+                        <option value="1+1">Pojedyncze + Pojedyncze</option>
+                    </select>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Utwórz pokój" />
         </form>
     </div>
 </body>
