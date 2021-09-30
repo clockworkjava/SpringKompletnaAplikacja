@@ -12,7 +12,7 @@ import java.util.List;
 public class GuestRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Transactional
     public void createNewGuest(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {

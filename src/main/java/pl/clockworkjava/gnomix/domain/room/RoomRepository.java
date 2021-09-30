@@ -2,6 +2,9 @@ package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,37 +12,37 @@ import java.util.List;
 @Repository
 public class RoomRepository {
 
-    List<Room> rooms = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public RoomRepository() {
-        Room room = new Room("1408", Arrays.asList(BedType.SINGLE));
-        Room r = new Room("1409", Arrays.asList(BedType.DOUBLE));
+    @Transactional
+    public Room createNewRoom(String roomNumber, List<BedType> beds) {
+        Room r = new Room(roomNumber, beds);
+        this.entityManager.persist(r);
+        return r;
+    }
 
-        this.rooms.add(room);
-        this.rooms.add(r);
+    @Transactional
+    public void removeById(long id) {
+        Room toBeDeleted = this.findById(id);
+        this.entityManager.remove(toBeDeleted);
+    }
+
+    public Room findById(long id) {
+
+        return this.entityManager.find(Room.class, id);
     }
 
     public List<Room> findAll() {
 
-        return this.rooms;
+        return this.entityManager
+                .createQuery("SELECT room FROM Room room", Room.class)
+                .getResultList();
 
     }
 
-    public Room createNewRoom(String roomNumber, List<BedType> beds) {
-        Room r = new Room(roomNumber, beds);
-        this.rooms.add(r);
-        return r;
-    }
-
-    public void removeById(long id) {
-        Room toBeDeleted = this.findById(id);
-        this.rooms.remove(toBeDeleted);
-    }
-
-    public Room findById(long id) {
-        return this.rooms.stream()
-                .filter(room -> room.getId()==id)
-                .findFirst()
-                .orElseThrow();
+    @Transactional
+    public Room update(Room r) {
+        return this.entityManager.merge(r);
     }
 }

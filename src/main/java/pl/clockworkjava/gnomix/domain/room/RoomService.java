@@ -45,6 +45,8 @@ public class RoomService {
 
 
         toUpdate.update(number, beds);
+
+        this.repository.update(toUpdate);
     }
 
     private List<BedType> getBedTypesList(String bedsDesc) {
