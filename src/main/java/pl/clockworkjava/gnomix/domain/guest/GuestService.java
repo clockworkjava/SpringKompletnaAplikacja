@@ -42,5 +42,6 @@ public class GuestService {
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender()
         );
+        this.repository.update(byId);
     }
 }

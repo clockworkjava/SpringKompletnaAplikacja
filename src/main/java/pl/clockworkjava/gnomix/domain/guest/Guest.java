@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Setter(value = AccessLevel.NONE)
@@ -31,7 +30,6 @@ public class Guest {
 
     public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender) {
 
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
