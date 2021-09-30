@@ -23,11 +23,13 @@ public class GuestService {
     }
 
     public void createNewGuest(GuestCreationDTO dto) {
-        this.repository.createNewGuest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender());
+
+        Guest newOne = new Guest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender());
+        this.repository.save(newOne);
     }
 
     public void removeById(long id) {
-        this.repository.removeById(id);
+        this.repository.deleteById(id);
     }
 
     public Guest getById(long id) {
@@ -42,6 +44,6 @@ public class GuestService {
                 updatedGuest.getDateOfBirth(),
                 updatedGuest.getGender()
         );
-        this.repository.update(byId);
+        this.repository.save(byId);
     }
 }

@@ -26,27 +26,31 @@ public class RoomService {
 
         List<BedType> beds = getBedTypesList(bedsDesc);
 
-        return this.repository.createNewRoom(roomNumber, beds);
+        Room newOne = new Room(roomNumber, beds);
+
+        return this.repository.save(newOne);
     }
 
     public void removeById(long id) {
-        this.repository.removeById(id);
+
+        this.repository.deleteById(id);
     }
 
     public Room findById(long id) {
-        return this.repository.findById(id);
+
+        return this.repository.getById(id);
     }
 
     public void update(long id, String number, String bedsDesc) {
 
-        Room toUpdate = this.repository.findById(id);
+        Room toUpdate = this.repository.getById(id);
 
         List<BedType> beds = getBedTypesList(bedsDesc);
 
 
         toUpdate.update(number, beds);
 
-        this.repository.update(toUpdate);
+        this.repository.save(toUpdate);
     }
 
     private List<BedType> getBedTypesList(String bedsDesc) {
