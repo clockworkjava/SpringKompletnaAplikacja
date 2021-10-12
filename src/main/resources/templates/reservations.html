@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gnomix - goście</title>
+    <title>Gnomix - rezerwacje</title>
     <script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 </head>
@@ -34,34 +34,31 @@
     </div>
 </nav>
 <div class="p-3 text-center bg-light">
-    <h2 class="mb-3">Lista Gości</h2>
+    <h2 class="mb-3">Lista Rezerwacji</h2>
 </div>
 <div class="container">
-    <a class="nav-link" href="/guests/create">Utwórz nowego gościa</a>
+
     <table class="table table-striped">
         <thead class="thead-dark">
-            <tr>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th>Data urodzenia</th>
-                <th>Płeć</th>
-            </tr>
+        <tr>
+            <th>Od</th>
+            <th>Do</th>
+            <th>Pokój</th>
+            <th>Właściciel</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="guest : ${guests}">
-                <td th:text="${guest.firstName}"/>
-                <td th:text="${guest.lastName}"/>
-                <td th:text="${guest.birthDate}"/>
-                <td th:text="${guest.gender}"/>
-                <td>
-                    <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
-                </td>
-                <td>
-                    <a th:href="@{/guests/edit/{id}(id=${guest.id})}">Edytuj</a>
-                </td>
-            </tr>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.fromDate}"/>
+            <td th:text="${reservation.toDate}"/>
+            <td th:text="${reservation.room.number}"/>
+            <td th:text="|${reservation.owner.firstName} ${reservation.owner.lastName}|"/>
+<!--            <td>-->
+<!--                <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>-->
+<!--            </td>-->
+        </tr>
         </tbody>
     </table>
-<div>
+    <div>
 </body>
 </html>

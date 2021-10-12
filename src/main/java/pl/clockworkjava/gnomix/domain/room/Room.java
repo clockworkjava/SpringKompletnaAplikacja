@@ -24,7 +24,7 @@ public class Room {
 
     private int size;
 
-    private Room() {
+    Room() {
 
     }
 
