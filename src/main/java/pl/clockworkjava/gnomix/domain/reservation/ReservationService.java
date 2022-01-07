@@ -27,6 +27,15 @@ public class ReservationService {
     }
 
     public List<Room> getAvaiableRooms(LocalDate from, LocalDate to, int size) {
+
+        if(size<0 || size>10) {
+            throw new IllegalArgumentException("Wrong size param [1-10]");
+        }
+
+        if(from.isEqual(to) || to.isBefore(from)) {
+            throw new IllegalArgumentException("Wrong dates");
+        }
+
         return this.roomService.findAll();
     }
 }
