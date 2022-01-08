@@ -48,7 +48,7 @@ public class ReservationControllerTest {
                 .andExpect(model().attribute("email", email));
 
         Mockito.verify(reservationService, Mockito.times(1))
-                .getAvaiableRooms(fromDate, toDate, size);
+                .getAvailableRooms(fromDate, toDate, size);
 
     }
 
@@ -72,7 +72,7 @@ public class ReservationControllerTest {
                 .andExpect(model().attributeExists("errors"));
 
         Mockito.verify(reservationService, Mockito.times(0))
-                .getAvaiableRooms(fromDate, toDate, size);
+                .getAvailableRooms(fromDate, toDate, size);
 
     }
 
@@ -96,7 +96,7 @@ public class ReservationControllerTest {
                 .andExpect(model().attributeExists("errors"));
 
         Mockito.verify(reservationService, Mockito.times(0))
-                .getAvaiableRooms(fromDate, toDate, size);
+                .getAvailableRooms(fromDate, toDate, size);
 
     }
 }

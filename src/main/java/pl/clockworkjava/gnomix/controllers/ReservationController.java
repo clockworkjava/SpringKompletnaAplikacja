@@ -53,7 +53,7 @@ public class ReservationController {
         }
 
         if(errors.isEmpty()) {
-            List<Room> rooms = this.reservationService.getAvaiableRooms(fromDate, toDate, size);
+            List<Room> rooms = this.reservationService.getAvailableRooms(fromDate, toDate, size);
             m.addAttribute("rooms", rooms);
             m.addAttribute("fromDate", fromDate);
             m.addAttribute("toDate", toDate);
