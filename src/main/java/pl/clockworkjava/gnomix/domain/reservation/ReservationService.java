@@ -99,4 +99,17 @@ public class ReservationService {
                 .filter(reservation -> reservation.getRoom().getId()==room.getId())
                 .collect(Collectors.toList());
     }
+
+    public boolean createTemporaryReservation(long roomId, LocalDate fromDate, LocalDate toDate, String email) {
+
+        Optional<Room> room = this.roomService.getRoomById(roomId);
+
+        room.ifPresent( r -> {
+            Reservation tmp = new Reservation(fromDate, toDate, r, email);
+            this.repository.save(tmp);
+        });
+
+        return room.isPresent();
+
+    }
 }

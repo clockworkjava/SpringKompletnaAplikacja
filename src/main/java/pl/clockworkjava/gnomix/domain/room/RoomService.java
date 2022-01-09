@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -82,5 +83,9 @@ public class RoomService {
                 .stream()
                 .filter( r -> r.getSize()>=size)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Room> getRoomById(long roomId) {
+        return this.repository.findById(roomId);
     }
 }

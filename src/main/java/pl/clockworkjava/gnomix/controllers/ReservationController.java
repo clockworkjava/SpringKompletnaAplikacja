@@ -63,10 +63,17 @@ public class ReservationController {
             m.addAttribute("errors", errors);
             return "reservationStepOne";
         }
-
-
     }
 
+    @PostMapping("/create/stepthree")
+    public String finalizeReservation(long roomId,
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+                                      String email) {
 
+        this.reservationService.createTemporaryReservation(roomId, fromDate, toDate, email);
+        return "reservationConfirmed";
+
+    }
 
 }
