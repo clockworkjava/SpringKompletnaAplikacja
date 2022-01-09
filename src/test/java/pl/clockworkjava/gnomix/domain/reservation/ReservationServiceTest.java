@@ -2,6 +2,7 @@ package pl.clockworkjava.gnomix.domain.reservation;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
 import java.time.LocalDate;
@@ -10,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReservationServiceTest {
 
@@ -317,6 +317,141 @@ public class ReservationServiceTest {
         assertEquals(0, collect.size());
     }
 
+    @Test
+    public void testPredicateGetReservationContainsPositive() {
 
+        //given
+        List<Reservation> reservations = new ArrayList<>();
+
+        LocalDate fromOne = LocalDate.parse("2022-01-08");
+        LocalDate toOne = LocalDate.parse("2022-01-10");
+
+        reservations.add(new Reservation(fromOne, toOne, null, null));
+
+        LocalDate fromTwo = LocalDate.parse("2022-02-05");
+        LocalDate toTwo = LocalDate.parse("2022-02-15");
+
+        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+
+        LocalDate myStartDate = LocalDate.parse("2022-02-06");
+        LocalDate myEndDate = LocalDate.parse("2022-02-10");
+
+        //when
+        List<Reservation> collect = reservations
+                .stream()
+                .filter(ReservationService.reservationContains(myStartDate, myEndDate))
+                .collect(Collectors.toList());
+
+        //then
+        assertEquals(1, collect.size());
+
+
+    }
+
+    @Test
+    public void testPredicateGetReservationContainsNegative() {
+
+        //given
+        List<Reservation> reservations = new ArrayList<>();
+
+        LocalDate fromOne = LocalDate.parse("2022-01-08");
+        LocalDate toOne = LocalDate.parse("2022-01-10");
+
+        reservations.add(new Reservation(fromOne, toOne, null, null));
+
+        LocalDate fromTwo = LocalDate.parse("2022-02-05");
+        LocalDate toTwo = LocalDate.parse("2022-02-15");
+
+        reservations.add(new Reservation(fromTwo, toTwo, null, null));
+
+        LocalDate myStartDate = LocalDate.parse("2022-02-25");
+        LocalDate myEndDate = LocalDate.parse("2022-02-28");
+
+
+        //when
+        List<Reservation> collect = reservations
+                .stream()
+                .filter(ReservationService.reservationContains(myStartDate, myEndDate))
+                .collect(Collectors.toList());
+
+        //then
+        assertEquals(0, collect.size());
+    }
+
+    @Test
+    public void testIfRoomAvailablePositive() {
+
+        //given
+        ReservationRepository repo = Mockito.mock(ReservationRepository.class);
+        RoomService rs = Mockito.mock(RoomService.class);
+        ReservationService reservationService = new ReservationService(repo, rs);
+
+        List<Reservation> reservations = new ArrayList<>();
+
+        LocalDate fromOne = LocalDate.parse("2022-01-08");
+        LocalDate toOne = LocalDate.parse("2022-01-10");
+
+        Room r = new Room("101", new ArrayList<>());
+        r.setId(101);
+
+        reservations.add(new Reservation(fromOne, toOne, null, r));
+
+        LocalDate fromTwo = LocalDate.parse("2022-02-05");
+        LocalDate toTwo = LocalDate.parse("2022-02-15");
+
+        reservations.add(new Reservation(fromTwo, toTwo, null, r));
+
+        Mockito.when(repo.findAll()).thenReturn(reservations);
+
+        LocalDate myStartDate = LocalDate.parse("2022-02-25");
+        LocalDate myEndDate = LocalDate.parse("2022-02-28");
+
+        //when
+
+        boolean result = reservationService.checkIfRoomAvailableForDates(r,myStartDate,myEndDate);
+
+        //then
+
+        assertTrue(result);
+
+    }
+
+    @Test
+    public void testIfRoomAvailableNegative() {
+
+        //given
+        ReservationRepository repo = Mockito.mock(ReservationRepository.class);
+        RoomService rs = Mockito.mock(RoomService.class);
+        ReservationService reservationService = new ReservationService(repo, rs);
+
+        List<Reservation> reservations = new ArrayList<>();
+
+        LocalDate fromOne = LocalDate.parse("2022-01-08");
+        LocalDate toOne = LocalDate.parse("2022-01-10");
+
+        Room r = new Room("101", new ArrayList<>());
+        r.setId(101);
+
+        reservations.add(new Reservation(fromOne, toOne, null, r));
+
+        LocalDate fromTwo = LocalDate.parse("2022-02-05");
+        LocalDate toTwo = LocalDate.parse("2022-02-15");
+
+        reservations.add(new Reservation(fromTwo, toTwo, null, r));
+
+        Mockito.when(repo.findAll()).thenReturn(reservations);
+
+        LocalDate myStartDate = LocalDate.parse("2022-01-08");
+        LocalDate myEndDate = LocalDate.parse("2022-02-28");
+
+        //when
+
+        boolean result = reservationService.checkIfRoomAvailableForDates(r,myStartDate,myEndDate);
+
+        //then
+
+        assertFalse(result);
+
+    }
 
 }
