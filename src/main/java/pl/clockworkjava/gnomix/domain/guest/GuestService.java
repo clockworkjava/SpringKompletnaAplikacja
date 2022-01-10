@@ -24,7 +24,7 @@ public class GuestService {
 
     public void createNewGuest(GuestCreationDTO dto) {
 
-        Guest newOne = new Guest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender());
+        Guest newOne = new Guest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender(), dto.isVip());
         this.repository.save(newOne);
     }
 

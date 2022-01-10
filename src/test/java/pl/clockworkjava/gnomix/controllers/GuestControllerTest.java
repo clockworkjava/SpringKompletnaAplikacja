@@ -63,7 +63,8 @@ public class GuestControllerTest {
                 "Pawel",
                 "Cwik",
                 LocalDate.parse("2021-09-15"),
-                Gender.FEMALE
+                Gender.FEMALE,
+                "on"
         );
 
         Mockito.verify(guestService, Mockito.times(1)).createNewGuest(dto);

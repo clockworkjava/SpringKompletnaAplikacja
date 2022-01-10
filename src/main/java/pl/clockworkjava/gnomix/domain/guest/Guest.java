@@ -23,6 +23,7 @@ public class Guest {
     private String lastName;
     private LocalDate birthDate;
     private Gender gender;
+    private boolean vip;
 
     Guest() {
 
@@ -34,7 +35,7 @@ public class Guest {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
-
+        this.vip = false;
     }
 
     public void update(String firstName, String lastName, LocalDate birthDate, Gender gender) {
@@ -42,5 +43,14 @@ public class Guest {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.vip = false;
+    }
+
+    public Guest(String firstName, String lastName, LocalDate birthDate, Gender gender, boolean vip) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.vip = vip;
     }
 }
