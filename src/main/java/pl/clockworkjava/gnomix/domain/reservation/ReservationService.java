@@ -3,11 +3,14 @@ package pl.clockworkjava.gnomix.domain.reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.reservation.events.TempReservationCreatedEvent;
 import pl.clockworkjava.gnomix.domain.room.Room;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -137,5 +140,27 @@ public class ReservationService {
 
     public void removeById(long id) {
         this.repository.deleteById(id);
+    }
+
+    public void removeUnconfirmedReservations() {
+
+        this.repository
+                .findAll()
+                .stream()
+                .filter(reservation -> !reservation.isConfirmed())
+                .filter(reservation -> reservation.getCreationDate().plus(60, ChronoUnit.MINUTES)
+                            .isBefore(LocalDateTime.now()))
+                .forEach(reservation ->
+                    this.repository.deleteById(reservation.getId())
+                );
+    }
+
+    public void attachGuestToReservation(Guest g, long reservationId) {
+        Optional<Reservation> byId = this.repository.findById(reservationId);
+
+        if(byId.isPresent()) {
+            byId.get().setOwner(g);
+            this.repository.save(byId.get());
+        }
     }
 }

@@ -38,6 +38,12 @@ public class Guest {
         this.vip = false;
     }
 
+    public Guest(String firstName, String lastName, LocalDate dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName= lastName;
+        this.birthDate = dateOfBirth;
+    }
+
     public void update(String firstName, String lastName, LocalDate birthDate, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;

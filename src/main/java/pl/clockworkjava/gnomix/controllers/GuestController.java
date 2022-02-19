@@ -1,6 +1,7 @@
 package pl.clockworkjava.gnomix.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,19 +10,23 @@ import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.controllers.dto.GuestUpdateDTO;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
+import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/guests")
 public class GuestController {
 
     private GuestService guestService;
+    private ReservationService reservationService;
 
     @Autowired
-    public GuestController(GuestService service) {
+    public GuestController(GuestService service, ReservationService reservationService) {
         this.guestService = service;
+        this.reservationService = reservationService;
     }
 
     @GetMapping
@@ -71,6 +76,18 @@ public class GuestController {
         this.guestService.update(updatedGuest);
 
         return "redirect:/guests";
+    }
+
+    @PostMapping("/createAndAttachToReservation")
+    public String createAndAttachToReservation(
+            String firstName,
+            String lastName,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+            long reservationId
+    ) {
+        Guest g = this.guestService.createNewGuest(firstName, lastName, dateOfBirth);
+        this.reservationService.attachGuestToReservation(g, reservationId);
+        return "thankyoupage";
     }
 
 }
