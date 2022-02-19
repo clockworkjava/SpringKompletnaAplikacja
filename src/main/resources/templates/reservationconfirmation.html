@@ -35,6 +35,13 @@
                        class="form-control" id="createnewguestdateofbirth"/>
             </div>
 
+            <div class="form-group">
+                <label for="createnewguestcustomerId">Numer klienta:</label>
+                <input type="text" name="customerId"
+                       class="form-control" id="createnewguestcustomerId"/>
+            </div>
+
+
             <input type="hidden" name="reservationId" th:value="${reservationId}"/>
 
             <input type="submit" class="btn btn-primary" value="Utwórz rezerwację" />

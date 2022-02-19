@@ -17,4 +17,6 @@ public class GuestUpdateDTO {
     private final LocalDate dateOfBirth;
 
     private final Gender gender;
+
+    private final String customerId;
 }

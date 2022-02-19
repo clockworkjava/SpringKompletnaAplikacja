@@ -45,6 +45,7 @@
                 <th>Nazwisko</th>
                 <th>Data urodzenia</th>
                 <th>Płeć</th>
+                <th>Numer Klienta</th>
             </tr>
         </thead>
         <tbody>
@@ -53,6 +54,7 @@
                 <td th:text="${guest.lastName}"/>
                 <td th:text="${guest.birthDate}"/>
                 <td th:text="${guest.gender}"/>
+                <td th:text="${guest.customerId}"/>
                 <td>
                     <a th:href="@{/guests/delete/{id}(id=${guest.id})}">Usuń</a>
                 </td>
