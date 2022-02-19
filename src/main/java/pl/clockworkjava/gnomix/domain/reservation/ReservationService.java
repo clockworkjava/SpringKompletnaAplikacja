@@ -112,12 +112,30 @@ public class ReservationService {
         room.ifPresent( r -> {
             Reservation tmp = new Reservation(fromDate, toDate, r, email);
             this.repository.save(tmp);
-            TempReservationCreatedEvent event = new TempReservationCreatedEvent(this,email,r.getId());
+            TempReservationCreatedEvent event = new TempReservationCreatedEvent(this,email,tmp.getId());
             publisher.publishEvent(event);
             System.out.println("UDALO SIE UTOWRZYC REZERWACJE");
         });
 
         return room.isPresent();
 
+    }
+
+    public boolean confirmReservation(long reservationId) {
+
+        Optional<Reservation> byId = this.repository.findById(reservationId);
+
+        if(byId.isPresent()) {
+            byId.get().confirm();
+            this.repository.save(byId.get());
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void removeById(long id) {
+        this.repository.deleteById(id);
     }
 }
