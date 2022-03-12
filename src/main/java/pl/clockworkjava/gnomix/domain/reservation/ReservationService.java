@@ -38,7 +38,7 @@ public class ReservationService {
         return this.repository.findAll();
     }
 
-    public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) {
+    public List<Room> getAvailableRooms(LocalDate from, LocalDate to, int size) throws IllegalArgumentException {
 
         List<Room> availableRooms = new ArrayList<>();
 
@@ -57,8 +57,6 @@ public class ReservationService {
                 availableRooms.add(room);
             }
         }
-
-
 
         return availableRooms;
     }
