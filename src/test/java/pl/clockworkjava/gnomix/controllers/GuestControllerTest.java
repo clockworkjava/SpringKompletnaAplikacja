@@ -18,6 +18,7 @@ import pl.clockworkjava.gnomix.controllers.dto.GuestCreationDTO;
 import pl.clockworkjava.gnomix.domain.guest.Gender;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.guest.GuestService;
+import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -30,6 +31,9 @@ public class GuestControllerTest {
 
     @MockBean
     private GuestService guestService;
+
+    @MockBean
+    private ReservationService reservationServiceService;
 
     @Test
     public void basic() throws Exception {
@@ -48,7 +52,7 @@ public class GuestControllerTest {
     @Test
     public void handlePost() throws Exception {
 
-        String postContent = "firstName=Pawel&lastName=Cwik&dateOfBirth=2021-09-15&gender=FEMALE";
+        String postContent = "firstName=Pawel&lastName=Cwik&dateOfBirth=2021-09-15&gender=FEMALE&vip=on";
 
         MockHttpServletRequestBuilder request =
                 post("/guests")

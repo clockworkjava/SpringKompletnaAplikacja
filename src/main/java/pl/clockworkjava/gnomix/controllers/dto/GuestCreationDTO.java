@@ -7,6 +7,7 @@ import pl.clockworkjava.gnomix.domain.guest.Gender;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class GuestCreationDTO {
 
@@ -56,5 +57,18 @@ public class GuestCreationDTO {
 
     public boolean isVip() {
         return vip;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GuestCreationDTO that = (GuestCreationDTO) o;
+        return vip == that.vip && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, dateOfBirth, gender, vip);
     }
 }

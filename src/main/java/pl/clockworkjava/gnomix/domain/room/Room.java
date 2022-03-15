@@ -24,6 +24,11 @@ public class Room {
 
     private int size;
 
+    private String description;
+
+    @ElementCollection(targetClass = String.class)
+    private List<String> photosUrls;
+
     Room() {
 
     }
@@ -40,6 +45,12 @@ public class Room {
         this.beds = bedsField;
 
         updateBeds();
+    }
+
+    public Room(String number, List<BedType> beds, String description, List<String> photosUrls) {
+        this(number,beds);
+        this.description = description;
+        this.photosUrls = photosUrls;
     }
 
     public String getBedsAsStr() {
@@ -66,6 +77,12 @@ public class Room {
         this.number = number;
         this.beds = beds;
         updateBeds();
+    }
+
+    public void update(String number, List<BedType> beds, String description, List<String> photosUrls) {
+        this.description = description;
+        this.photosUrls = photosUrls;
+        this.update(number, beds);
     }
 
     private void updateBeds() {
