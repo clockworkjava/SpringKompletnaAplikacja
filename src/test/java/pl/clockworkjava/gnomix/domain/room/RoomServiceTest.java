@@ -23,7 +23,7 @@ public class RoomServiceTest {
         Room r = new Room("102", bedTypes);
 
         //when
-        rs.createNewRoom("102", "2+1+1");
+        rs.createNewRoom("102", "2+1+1", "", null);
 
 
 

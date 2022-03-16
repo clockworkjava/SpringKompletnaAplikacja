@@ -24,11 +24,11 @@ public class RoomService {
         return repository.findAll();
     }
 
-    public Room createNewRoom(String roomNumber, String bedsDesc) {
+    public Room createNewRoom(String roomNumber, String bedsDesc, String description, List<String> photosUrls) {
 
         List<BedType> beds = getBedTypesList(bedsDesc);
 
-        Room newOne = new Room(roomNumber, beds);
+        Room newOne = new Room(roomNumber, beds, description, photosUrls);
 
         return this.repository.save(newOne);
     }
@@ -43,14 +43,14 @@ public class RoomService {
         return this.repository.getById(id);
     }
 
-    public void update(long id, String number, String bedsDesc) {
+    public void update(long id, String number, String bedsDesc, String description, List<String> photosUrls) {
 
         Room toUpdate = this.repository.getById(id);
 
         List<BedType> beds = getBedTypesList(bedsDesc);
 
 
-        toUpdate.update(number, beds);
+        toUpdate.update(number, beds, description, photosUrls);
 
         this.repository.save(toUpdate);
     }
