@@ -12,7 +12,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.clockworkjava.gnomix.controllers.dto.AvailableRoomDTO;
+import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
@@ -67,8 +67,8 @@ public class RestRoomControllerTest {
 
         MockHttpServletResponse response = result.getResponse();
 
-        CollectionType dtoCollection = mapper.getTypeFactory().constructCollectionType(List.class, AvailableRoomDTO.class);
-        List<AvailableRoomDTO> results = mapper.readValue(response.getContentAsString(), dtoCollection);
+        CollectionType dtoCollection = mapper.getTypeFactory().constructCollectionType(List.class, RoomAvailableDTO.class);
+        List<RoomAvailableDTO> results = mapper.readValue(response.getContentAsString(), dtoCollection);
 
         assertTrue(response.getStatus() == HttpStatus.OK.value());
         assertTrue(response.getContentType().equals("application/json"));

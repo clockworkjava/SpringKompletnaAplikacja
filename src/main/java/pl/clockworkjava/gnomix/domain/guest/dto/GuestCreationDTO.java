@@ -1,4 +1,4 @@
-package pl.clockworkjava.gnomix.controllers.dto;
+package pl.clockworkjava.gnomix.domain.guest.dto;
 
 
 import org.springframework.format.annotation.DateTimeFormat;

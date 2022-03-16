@@ -1,4 +1,4 @@
-package pl.clockworkjava.gnomix.controllers.dto;
+package pl.clockworkjava.gnomix.domain.room.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.clockworkjava.gnomix.domain.room.BedType;
@@ -6,21 +6,21 @@ import pl.clockworkjava.gnomix.domain.room.Room;
 
 import java.util.List;
 
-public class AvailableRoomDTO {
+public class RoomAvailableDTO {
 
     private final String number;
     private final long id;
     private final List<BedType> beds;
     private final int size;
 
-    public AvailableRoomDTO(String number, long id, List<BedType> beds, int size) {
+    public RoomAvailableDTO(String number, long id, List<BedType> beds, int size) {
         this.number = number;
         this.id = id;
         this.beds = beds;
         this.size = size;
     }
 
-    public AvailableRoomDTO(Room room) {
+    public RoomAvailableDTO(Room room) {
         this.number = room.getNumber();
         this.id = room.getId();
         this.beds = room.getBeds();
