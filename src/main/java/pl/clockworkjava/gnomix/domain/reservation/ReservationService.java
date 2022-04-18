@@ -2,7 +2,6 @@ package pl.clockworkjava.gnomix.domain.reservation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.reservation.events.TempReservationCreatedEvent;
@@ -28,10 +27,8 @@ public class ReservationService {
     @Autowired
     public ReservationService(
             ReservationRepository repository,
-            @Lazy RoomService roomService,
             ApplicationEventPublisher publisher) {
         this.repository = repository;
-        this.roomService = roomService;
         this.publisher = publisher;
     }
 
@@ -161,5 +158,10 @@ public class ReservationService {
             byId.get().setOwner(g);
             this.repository.save(byId.get());
         }
+    }
+
+    @Autowired
+    public void setRoomService(RoomService roomService) {
+        this.roomService = roomService;
     }
 }

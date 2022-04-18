@@ -24,7 +24,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         //when then
         assertThrows(IllegalArgumentException.class,
@@ -41,7 +42,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         //when then
         assertThrows(IllegalArgumentException.class,
@@ -58,7 +60,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         //when then
         assertThrows(IllegalArgumentException.class,
@@ -75,7 +78,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         //when then
         assertThrows(IllegalArgumentException.class,
@@ -390,7 +394,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         List<Reservation> reservations = new ArrayList<>();
 
@@ -429,7 +434,8 @@ public class ReservationServiceTest {
         ReservationRepository repo = Mockito.mock(ReservationRepository.class);
         RoomService rs = Mockito.mock(RoomService.class);
         ApplicationEventPublisher publisher = Mockito.mock(ApplicationEventPublisher.class);
-        ReservationService reservationService = new ReservationService(repo, rs, publisher);
+        ReservationService reservationService = new ReservationService(repo, publisher);
+        reservationService.setRoomService(rs);
 
         List<Reservation> reservations = new ArrayList<>();
 
