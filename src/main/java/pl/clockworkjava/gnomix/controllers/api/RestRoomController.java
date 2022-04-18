@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.clockworkjava.gnomix.domain.room.RoomService;
 import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
+import pl.clockworkjava.gnomix.domain.room.dto.RoomCreateRestDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,5 +47,10 @@ public class RestRoomController {
     @GetMapping("api/rooms")
     public List<RoomAvailableDTO> getAllRooms() {
         return this.roomService.findAll().stream().map(RoomAvailableDTO::new).collect(Collectors.toList());
+    }
+
+    @PostMapping("api/rooms")
+    public void createRoom(@RequestBody RoomCreateRestDTO dto) {
+        this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrls());
     }
 }

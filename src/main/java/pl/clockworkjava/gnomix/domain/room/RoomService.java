@@ -33,6 +33,13 @@ public class RoomService {
         return this.repository.save(newOne);
     }
 
+    public Room createNewRoom(String roomNumber, List<BedType> beds, String description, List<String> photosUrls) {
+
+        Room newOne = new Room(roomNumber, beds, description, photosUrls);
+
+        return this.repository.save(newOne);
+    }
+
     public void removeById(long id) {
 
         this.repository.deleteById(id);
