@@ -1,8 +1,12 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import pl.clockworkjava.gnomix.domain.reservation.Reservation;
+import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,10 +18,12 @@ import java.util.stream.Collectors;
 public class RoomService {
 
     private RoomRepository repository;
+    private ReservationService reservationService;
 
     @Autowired
-    public RoomService(RoomRepository repository) {
+    public RoomService(RoomRepository repository, ReservationService reservationService) {
         this.repository = repository;
+        this.reservationService = reservationService;
     }
 
     public List<Room> findAll() {
@@ -42,7 +48,17 @@ public class RoomService {
 
     public void removeById(long id) {
 
+        boolean thereIsReservationForThisRoom = this.reservationService
+                .getAll()
+                .stream()
+                .anyMatch(r -> r.getRoom().getId()==id);
+
+        if(thereIsReservationForThisRoom) {
+            throw new IllegalStateException("There is reservation for this room");
+        }
+
         this.repository.deleteById(id);
+
     }
 
     public Room findById(long id) {

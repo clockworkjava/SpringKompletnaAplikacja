@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.domain.room;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +18,9 @@ public class RoomServiceTest {
 
         //give
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         ArgumentCaptor<Room> roomCaptor = ArgumentCaptor.forClass(Room.class);
-        RoomService rs = new RoomService(roomRepository);
+        RoomService rs = new RoomService(roomRepository, reservationService);
         List<BedType> bedTypes = Arrays.asList(BedType.DOUBLE, BedType.SINGLE, BedType.SINGLE);
         Room r = new Room("102", bedTypes);
 
@@ -45,9 +47,11 @@ public class RoomServiceTest {
         rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
         rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
 
-        RoomService roomService = new RoomService(roomRepository);
+
+        RoomService roomService = new RoomService(roomRepository, reservationService);
 
         //when
         List<Room> result = roomService.getRoomsForSize(1);
@@ -64,9 +68,12 @@ public class RoomServiceTest {
         rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
         rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
+
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
+
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
 
-        RoomService roomService = new RoomService(roomRepository);
+        RoomService roomService = new RoomService(roomRepository, reservationService);
 
         //when
         List<Room> result = roomService.getRoomsForSize(4);
@@ -84,8 +91,9 @@ public class RoomServiceTest {
         rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
         rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        RoomService roomService = new RoomService(roomRepository);
+        RoomService roomService = new RoomService(roomRepository, reservationService);
 
         //when
         List<Room> result = roomService.getRoomsForSize(3);
@@ -103,8 +111,9 @@ public class RoomServiceTest {
         rooms.add(new Room("102", Arrays.asList(BedType.SINGLE)));
         rooms.add(new Room("103", Arrays.asList(BedType.DOUBLE, BedType.SINGLE)));
         RoomRepository roomRepository = Mockito.mock(RoomRepository.class);
+        ReservationService reservationService = Mockito.mock(ReservationService.class);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        RoomService roomService = new RoomService(roomRepository);
+        RoomService roomService = new RoomService(roomRepository, reservationService);
 
         //when
         List<Room> result = roomService.getRoomsForSize(-1);
