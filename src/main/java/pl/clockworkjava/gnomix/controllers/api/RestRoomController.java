@@ -1,5 +1,6 @@
 package pl.clockworkjava.gnomix.controllers.api;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import pl.clockworkjava.gnomix.domain.room.dto.RoomCreateRestDTO;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @RestController
 public class RestRoomController {
@@ -51,6 +53,8 @@ public class RestRoomController {
         this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrls());
     }
 
+    @ApiResponse(responseCode = "200", description = "OK")
+    @ApiResponse(responseCode = "403", description = "Forbidden, reservations for given room exists")
     @DeleteMapping("api/rooms/{id}")
     public void deleteRoom(@PathVariable long id) {
         try {
