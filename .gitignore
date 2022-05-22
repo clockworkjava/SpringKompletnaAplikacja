@@ -36,3 +36,4 @@ build/
 ### GENERAL ###
 
 /src/main/resources/application.properties
+/data/gnomix.mv.db
