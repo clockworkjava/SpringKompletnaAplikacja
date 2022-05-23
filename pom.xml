@@ -83,6 +83,11 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -97,6 +102,15 @@
 				<configuration>
 					<source>16</source>
 					<target>16</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:mysql://mysql2.mydevil.net:3306/m13176_spring_kompletna</url>
+					<user>m13176_spri_komp</user>
+					<password>AlaMaKota99!</password>
 				</configuration>
 			</plugin>
 		</plugins>
