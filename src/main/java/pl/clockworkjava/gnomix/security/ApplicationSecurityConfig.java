@@ -3,6 +3,7 @@ package pl.clockworkjava.gnomix.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -28,7 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailService;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder encoder, UserDetailsService service) {
+    public ApplicationSecurityConfig(@Lazy PasswordEncoder encoder, UserDetailsService service) {
         this.encoder = encoder;
         this.userDetailService = service;
     }
