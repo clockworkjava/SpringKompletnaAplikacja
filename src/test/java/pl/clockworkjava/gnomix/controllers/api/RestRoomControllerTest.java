@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.clockworkjava.gnomix.domain.room.RoomService;
 import pl.clockworkjava.gnomix.domain.room.dto.RoomAvailableDTO;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 import pl.clockworkjava.gnomix.domain.room.Room;
@@ -26,7 +30,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@WebMvcTest(RestRoomController.class)
+@WebMvcTest(controllers = RestRoomController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class RestRoomControllerTest {
 
 
@@ -36,9 +41,13 @@ public class RestRoomControllerTest {
     @MockBean
     private ReservationService reservationService;
 
+    @MockBean
+    private RoomService roomService;
+
     @Autowired
     private ObjectMapper mapper;
 
+    @WithMockUser(username = "pawelcwik", roles = {"RECEPTION"} )
     @Test
     public void getFreeRoomsHappyPath() throws Exception {
 
@@ -81,6 +90,7 @@ public class RestRoomControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "pawelcwik", roles = {"RECEPTION"} )
     public void getFreeRoomsInvalidSize() throws Exception {
 
         String url = "/api/getFreeRooms?from=2022-03-12&to=2022-03-13&size=20";
