@@ -41,20 +41,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new CustomAuthenticationFiler(authenticationManager()))
+                .addFilterBefore(new CustomAuthorizationFilter(), CustomAuthenticationFiler.class)
                 .authorizeRequests()
-                .antMatchers("/v3/api-docs/*")
+                .antMatchers("/v3/api-docs/*", "/login", "/api/login/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-
-//                .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .defaultSuccessUrl("/rooms", true)
-//                .and()
-//                .rememberMe()
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"));
     }
 }
