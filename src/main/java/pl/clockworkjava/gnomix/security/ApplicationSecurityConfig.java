@@ -31,7 +31,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new CustomAuthenticationFiler(authenticationManager()))
                 .addFilterBefore(new CustomAuthorizationFilter(), CustomAuthenticationFiler.class)
                 .authorizeRequests()
-                .antMatchers("/v3/api-docs/*", "/login", "/api/login/**")
+                .antMatchers("/v3/api-docs/*", "/login", "/api/login/**", "/")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
