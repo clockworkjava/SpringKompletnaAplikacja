@@ -63,7 +63,7 @@ public class RestRoomController {
     @PostMapping("api/rooms")
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     public void createRoom(@RequestBody RoomCreateRestDTO dto) {
-        this.roomService.createNewRoom(dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrls());
+        this.roomService.createNewRoom(dto.getRoomNumber(), dto.getBeds(), dto.getDescription(), dto.getPhotosUrls());
     }
 
     @ApiResponse(responseCode = "200", description = "OK")
@@ -81,12 +81,13 @@ public class RestRoomController {
     @PutMapping("api/rooms/{id}")
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     public void updateRoom(@PathVariable long id, @RequestBody RoomCreateRestDTO dto) {
-        this.roomService.update(id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrls());
+        this.roomService.update(id, dto.getRoomNumber(), dto.getBeds(), dto.getDescription(), dto.getPhotosUrls());
     }
 
     @PatchMapping("api/rooms/{id}")
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     public void updateRoomViaPatch(@PathVariable long id, @RequestBody RoomCreateRestDTO dto) {
-        this.roomService.updateViaPatch(id, dto.roomNumber(), dto.beds(), dto.description(), dto.photosUrls());
+        this.roomService.updateViaPatch(id, dto.getRoomNumber(), dto.getBeds(), dto.getDescription(),
+                dto.getPhotosUrls());
     }
 }
