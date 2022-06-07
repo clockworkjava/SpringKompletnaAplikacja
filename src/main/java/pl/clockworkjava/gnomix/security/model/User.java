@@ -1,6 +1,14 @@
 package pl.clockworkjava.gnomix.security.model;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
 import java.util.List;
 
 @Entity
@@ -20,7 +28,7 @@ public class User {
     @Column(name = "role")
     private List<String> roles;
 
-    User(){
+    User() {
 
     }
 

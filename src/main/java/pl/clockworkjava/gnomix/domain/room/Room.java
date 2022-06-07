@@ -2,10 +2,13 @@ package pl.clockworkjava.gnomix.domain.room;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ElementCollection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,24 +44,22 @@ public class Room {
 
         this.number = number;
 
-        List<BedType> bedsField = new ArrayList<>(beds);
-        this.beds = bedsField;
+        this.beds = new ArrayList<>(beds);
 
         updateBeds();
     }
 
     public Room(String number, List<BedType> beds, String description, List<String> photosUrls) {
-        this(number,beds);
+        this(number, beds);
         this.description = description;
         this.photosUrls = photosUrls;
     }
 
     public String getBedsAsStr() {
-        String bedAsStr = this.beds.stream()
+
+        return this.beds.stream()
                 .map(getBedTypeStringFunction())
                 .collect(Collectors.joining("+"));
-
-        return bedAsStr;
     }
 
     private Function<BedType, String> getBedTypeStringFunction() {

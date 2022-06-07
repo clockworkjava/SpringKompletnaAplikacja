@@ -111,8 +111,7 @@ public class ReservationServiceTest {
         //when
         List<Reservation> collect = reservations
                 .stream()
-                .filter(ReservationService.reservationStartsAtTheSameDate(myStartDate))
-                .collect(Collectors.toList());
+                .filter(ReservationService.reservationStartsAtTheSameDate(myStartDate)).toList();
 
         //then
         assertEquals(1, collect.size());
@@ -139,8 +138,7 @@ public class ReservationServiceTest {
         //when
         List<Reservation> collect = reservations
                 .stream()
-                .filter(ReservationService.reservationStartsAtTheSameDate(myStartDate))
-                .collect(Collectors.toList());
+                .filter(ReservationService.reservationStartsAtTheSameDate(myStartDate)).toList();
 
         //then
         assertEquals(0, collect.size());
@@ -167,8 +165,7 @@ public class ReservationServiceTest {
         //when
         List<Reservation> collect = reservations
                 .stream()
-                .filter(ReservationService.reservationEndsAtTheSameDate(myStartDate))
-                .collect(Collectors.toList());
+                .filter(ReservationService.reservationEndsAtTheSameDate(myStartDate)).toList();
 
         //then
         assertEquals(1, collect.size());
@@ -197,8 +194,7 @@ public class ReservationServiceTest {
         //when
         List<Reservation> collect = reservations
                 .stream()
-                .filter(ReservationService.reservationEndsAtTheSameDate(myStartDate))
-                .collect(Collectors.toList());
+                .filter(ReservationService.reservationEndsAtTheSameDate(myStartDate)).toList();
 
         //then
         assertEquals(0, collect.size());

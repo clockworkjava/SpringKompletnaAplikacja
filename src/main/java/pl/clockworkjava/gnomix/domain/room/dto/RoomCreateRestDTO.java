@@ -8,5 +8,4 @@ public record RoomCreateRestDTO(
         String roomNumber,
         List<BedType> beds,
         String description,
-        List<String> photosUrls)
-{}
+        List<String> photosUrls) { }

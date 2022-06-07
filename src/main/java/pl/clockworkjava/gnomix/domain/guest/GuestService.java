@@ -7,12 +7,11 @@ import pl.clockworkjava.gnomix.domain.guest.dto.GuestUpdateDTO;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GuestService {
 
-    private GuestRepository repository;
+    private final GuestRepository repository;
 
     @Autowired
     public GuestService(GuestRepository repository) {
@@ -25,7 +24,12 @@ public class GuestService {
 
     public void createNewGuest(GuestCreationDTO dto) {
 
-        Guest newOne = new Guest(dto.getFirstName(), dto.getLastName(), dto.getDateOfBirth(), dto.getGender(), dto.isVip());
+        Guest newOne = new Guest(
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getDateOfBirth(),
+                dto.getGender(),
+                dto.isVip());
         this.repository.save(newOne);
     }
 
@@ -56,6 +60,7 @@ public class GuestService {
     }
 
     public Guest getGuestByCustomerId(String firstName, String lastName, LocalDate dateOfBirth, String customerId) {
-        return this.repository.findTop1ByCustomerIdAndFirstNameAndLastNameAndBirthDate(customerId, firstName, lastName, dateOfBirth).get();
+        return this.repository.findTop1ByCustomerIdAndFirstNameAndLastNameAndBirthDate(
+                customerId, firstName, lastName, dateOfBirth).get();
     }
 }

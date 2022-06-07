@@ -1,12 +1,9 @@
 package pl.clockworkjava.gnomix.domain.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import pl.clockworkjava.gnomix.domain.reservation.Reservation;
 import pl.clockworkjava.gnomix.domain.reservation.ReservationService;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class RoomService {
 
-    private RoomRepository repository;
-    private ReservationService reservationService;
+    private final RoomRepository repository;
+    private final ReservationService reservationService;
 
     @Autowired
     public RoomService(RoomRepository repository, ReservationService reservationService) {
@@ -30,20 +27,20 @@ public class RoomService {
         return repository.findAll();
     }
 
-    public Room createNewRoom(String roomNumber, String bedsDesc, String description, List<String> photosUrls) {
+    public void createNewRoom(String roomNumber, String bedsDesc, String description, List<String> photosUrls) {
 
         List<BedType> beds = getBedTypesList(bedsDesc);
 
         Room newOne = new Room(roomNumber, beds, description, photosUrls);
 
-        return this.repository.save(newOne);
+        this.repository.save(newOne);
     }
 
-    public Room createNewRoom(String roomNumber, List<BedType> beds, String description, List<String> photosUrls) {
+    public void createNewRoom(String roomNumber, List<BedType> beds, String description, List<String> photosUrls) {
 
         Room newOne = new Room(roomNumber, beds, description, photosUrls);
 
-        return this.repository.save(newOne);
+        this.repository.save(newOne);
     }
 
     public void removeById(long id) {
@@ -51,9 +48,9 @@ public class RoomService {
         boolean thereIsReservationForThisRoom = this.reservationService
                 .getAll()
                 .stream()
-                .anyMatch(r -> r.getRoom().getId()==id);
+                .anyMatch(r -> r.getRoom().getId() == id);
 
-        if(thereIsReservationForThisRoom) {
+        if (thereIsReservationForThisRoom) {
             throw new IllegalStateException("There is reservation for this room");
         }
 
@@ -107,7 +104,7 @@ public class RoomService {
 
     public List<Room> getRoomsForSize(int size) {
 
-        if(size <= 0) {
+        if (size <= 0) {
             return new ArrayList<>();
         }
 
@@ -118,27 +115,28 @@ public class RoomService {
         return this.repository.findById(roomId);
     }
 
-    public void updateViaPatch(long id, String roomNumber, List<BedType> beds, String description, List<String> photosUrls) {
+    public void updateViaPatch(long id, String roomNumber, List<BedType> beds,
+                               String description, List<String> photosUrls) {
 
         Room toUpdate = this.repository.getById(id);
 
         String newNumber = toUpdate.getNumber();
-        if(roomNumber!=null) {
+        if (roomNumber != null) {
             newNumber = roomNumber;
         }
 
         List<BedType> newBeds = toUpdate.getBeds();
-        if(beds!=null) {
+        if (beds != null) {
             newBeds = beds;
         }
 
         String newDescription = toUpdate.getDescription();
-        if(description!=null) {
+        if (description != null) {
             newDescription = description;
         }
 
         List<String> newPhotosUrls = toUpdate.getPhotosUrls();
-        if(photosUrls!=null) {
+        if (photosUrls != null) {
             newPhotosUrls = photosUrls;
         }
 

@@ -25,9 +25,12 @@ public class RestReservationController {
     public void createTempReservation(@Valid @RequestBody ReservationCreateTmpRestDTO payload) {
 
        boolean result =  this.reservationService
-               .createTemporaryReservation(payload.getRoomId(), payload.getFromDate(), payload.getToDate(), payload.getEmail());
+               .createTemporaryReservation(payload.getRoomId(),
+                       payload.getFromDate(),
+                       payload.getToDate(),
+                       payload.getEmail());
 
-       if(!result) {
+       if (!result) {
            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to find room with such ID");
        }
     }

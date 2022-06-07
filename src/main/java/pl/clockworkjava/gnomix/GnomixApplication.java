@@ -6,11 +6,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-public class GnomixApplication {
+public final class GnomixApplication {
 
-	public static void main(String[] args) {
+    private GnomixApplication() { }
 
-		SpringApplication.run(GnomixApplication.class, args);
-	}
+    public static void main(String[] args) {
+       SpringApplication.run(GnomixApplication.class, args);
+    }
 
 }

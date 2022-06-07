@@ -6,5 +6,4 @@ public record RoomCreateDTO(
         String number,
         String bedsDesc,
         String description,
-        List<String> photosUrls)
-{}
+        List<String> photosUrls) { }

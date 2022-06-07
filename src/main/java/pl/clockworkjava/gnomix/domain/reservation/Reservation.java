@@ -4,10 +4,14 @@ import lombok.Data;
 import pl.clockworkjava.gnomix.domain.guest.Guest;
 import pl.clockworkjava.gnomix.domain.room.Room;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -36,7 +40,9 @@ public class Reservation {
         this.room = room;
     }
 
-    public Reservation(LocalDate fromDate, LocalDate toDate, boolean confirmed, LocalDateTime creationDate, String email, Guest owner, Room room) {
+    public Reservation(
+            LocalDate fromDate, LocalDate toDate, boolean confirmed,
+            LocalDateTime creationDate, String email, Guest owner, Room room) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.confirmed = confirmed;
@@ -46,7 +52,8 @@ public class Reservation {
         this.room = room;
     }
 
-    public Reservation(LocalDate fromDate, LocalDate toDate, boolean confirmed, LocalDateTime creationDate, Guest owner, Room room) {
+    public Reservation(LocalDate fromDate, LocalDate toDate, boolean confirmed,
+                       LocalDateTime creationDate, Guest owner, Room room) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.confirmed = confirmed;

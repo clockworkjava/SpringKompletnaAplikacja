@@ -20,8 +20,6 @@ public class EmailService {
     @Value("${gnomix.port}")
     private String port;
 
-    private String confirmationEndpoint = "reservations/confirm";
-
     @Autowired
     public EmailService(JavaMailSender sender) {
         this.sender = sender;
@@ -31,7 +29,9 @@ public class EmailService {
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        String endpoint = String.format("%s://%s:%s/%s/%d", protocol, domain, port, confirmationEndpoint, reservationId);
+        String confirmationEndpoint = "reservations/confirm";
+        String endpoint = String.format("%s://%s:%s/%s/%d", protocol, domain, port, confirmationEndpoint,
+                reservationId);
 
         mail.setTo(email);
         mail.setFrom("systemgnomix@gmail.com");
