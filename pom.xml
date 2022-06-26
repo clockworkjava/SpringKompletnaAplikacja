@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<maven.compiler.release>11</maven.compiler.release>
-		<spring.profiles.active>aws</spring.profiles.active>
+<!--		<spring.profiles.active>aws</spring.profiles.active>-->
 	</properties>
 
 	<dependencies>
